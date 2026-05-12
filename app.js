@@ -69,7 +69,7 @@ const mapasBase = {
 // === CARGAR DATOS DESDE EXCEL ===
 
 const EXCEL_URL =
-  "https://raw.githubusercontent.com/TU-USUARIO/TU-REPO/main/data/BASE%20DE%20DATOS.xlsx";
+  "https://github.com/pinwii21/NUEVO-CONTRATO/blob/main/data/BASE%20DE%20DATOS.xlsx";
 
 async function cargarExcel() {
   try {
@@ -110,6 +110,7 @@ async function cargarExcel() {
     mostrarMapa(geojsonData);
     centrarMapa(geojsonData);
     actualizarListaPersonas(features);
+    actualizarDashboard(features);
 
   } catch (error) {
     console.error("Error cargando Excel:", error);
@@ -389,6 +390,7 @@ function filtrarDatos() {
   mostrarMapa(dataset);
   centrarMapa(dataset);
   actualizarListaPersonas(filtrados);
+  actualizarDashboard(filtrados);
 }
 
 function actualizarSugerencias(campo, datalistElement) {
@@ -742,5 +744,56 @@ if (toggleTablaBtn) {
   });
 })();
 
+// ===============================
+// DASHBOARD ESTADÍSTICO
+// ===============================
+
+function actualizarDashboard(features) {
+
+  // TOTAL PERSONAL
+  document.getElementById("kpiPersonal").textContent =
+    features.length;
+
+  // TOTAL RUTAS ÚNICAS
+  const rutas = new Set(
+    features.map(f => f.properties?.RUTA).filter(Boolean)
+  );
+
+  document.getElementById("kpiRutas").textContent =
+    rutas.size;
+
+  // VERIFICADOS
+  const verificados = features.filter(f =>
+    (f.properties?.VERIFICACION || "")
+      .toString()
+      .toUpperCase()
+      .includes("SI")
+  );
+
+  document.getElementById("kpiVerificados").textContent =
+    verificados.length;
+
+  // SUBSIDIOS
+  const subsidios = features.filter(f =>
+    (f.properties?.["SUBDISIO DE TRANSPORTE"] || "")
+      .toString()
+      .toUpperCase()
+      .includes("SI")
+  );
+
+  document.getElementById("kpiSubsidios").textContent =
+    subsidios.length;
+
+  // DISCAPACIDAD
+  const discapacidad = features.filter(f =>
+    (f.properties?.DISCAPACIDAD || "")
+      .toString()
+      .toUpperCase()
+      .includes("SI")
+  );
+
+  document.getElementById("kpiDiscapacidad").textContent =
+    discapacidad.length;
+}
 
 
