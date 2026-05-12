@@ -1,0 +1,590 @@
+/* Fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* VARIABLES DE COLOR */
+:root {
+  /* Superficies */
+  --color-fondo: #f4f5f7;        /* gris operativo */
+  --color-panel: #ffffff;
+  --color-borde: #cfd3d8;
+
+  /* Núcleo */
+  --color-primario: #204287;     /* grafito duro */
+  --color-secundario: #091f51;   /* ámbar de alerta */
+
+  /* Estados */
+  --color-exito: #0f7c6d;        /* verde control */
+  --color-peligro: #1f14bc;      /* rojo alarma */
+
+  /* Texto */
+  --color-texto: #000000;        /* casi negro técnico */
+  --color-texto-sec: #041435;
+}
+header {
+  background: linear-gradient(
+    180deg,
+    #103159,
+    #265184
+  );
+}
+
+.toggle-btn,
+.tabla-fab,
+#loginContainer button {
+  background: linear-gradient(
+    100deg,
+    #0e0e42,
+    #225e995d
+  );
+  color: #4c5aa4;
+  font-weight: 600;
+}
+
+.toggle-btn:hover,
+.tabla-fab:hover {
+  filter: contrast(1.1) brightness(1.05);
+}
+
+#tabla tr.resaltado {
+  background-color: rgba(99, 115, 149, 0.35);
+}
+
+L.circleMarker(latlng, {
+  radius: 6,
+  fillColor: "#f59e0b",   // ámbar = activo
+  color: "#1f2328",       // grafito = estructura
+  weight: 1.5,
+  fillOpacity: 0.9
+});
+
+/*FIN VARIABLES DE COLOR*/
+
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-fondo);
+  color: #333;
+  overflow: auto;
+}
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background-color: var(--color-primario);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header h1 {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#loginContainer input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+#loginContainer button {
+  background-color: var(--color-secundario);
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#loginContainer button:hover {
+  background-color: #0056b3;
+}
+
+#logoutBtn {
+  background-color: var(--color-peligro);
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  display: none;
+}
+
+#logoutBtn:hover {
+  background-color: #a71d2a;
+}
+
+#map {
+  position: fixed;
+  top: 60px; 
+  left: 300px; 
+  right: 0;
+  bottom: 0px; 
+  z-index: 400;
+}
+
+#contenedorPrincipal {
+  position: fixed;
+  top: 60px;                 /* debajo del header */
+  left: 0;
+  width: 300px;
+  bottom: 0;                 /* ✅ ocupa todo el alto */
+  background-color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+
+#panelFiltros {
+  max-height: 999px;
+  padding: 10px 20px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  border-bottom: 1px solid #ddd;
+  -webkit-overflow-scrolling: touch;
+}
+
+#panelFiltros h2 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--color-primario);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grupo-control {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.grupo-control label {
+  width: 100%;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.grupo-control select,
+.grupo-control input {
+  flex: 1 1 auto;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.grupo-control select:focus,
+.grupo-control input:focus {
+  border-color: var(--color-primario);
+}
+
+#addForm {
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  display: none;
+  flex-shrink: 0;
+}
+
+#addForm h2 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primario);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 15px;
+  margin-bottom: 15px;
+}
+
+#addForm label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+#addForm input {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  outline: none;
+  text-transform: uppercase;
+  transition: border-color 0.3s ease;
+}
+
+#addForm input:focus {
+  border-color: var(--color-primario);
+}
+
+#addForm button {
+  padding: 10px 15px;
+  background-color: var(--color-primario);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+#addForm button:hover {
+  background-color: #003366;
+}
+
+#addForm button + button {
+  margin-top: 8px;
+}
+
+#descargarGeoJSONBtn {
+  background-color: var(--color-exito);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+#descargarGeoJSONBtn:hover {
+  background-color: #1e7e34;
+}
+
+
+
+.card-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.toggle-btn {
+  background-color: var(--color-primario);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle-btn:hover {
+  background-color: #003366;
+}
+
+.toggle-content {
+  display: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1200;
+  position: absolute;
+  right: 15px;
+  top: 40px;
+  width: 250px;
+}
+
+.toggle-content.active {
+  display: block;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#tabla {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 250px;
+  font-size: 0.75rem;
+  border-top: 1px solid #ccc;
+}
+
+#tabla  {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
+  font-size: 0.75rem;
+}
+
+#tabla th, #tabla td {
+  border: 1px solid #ddd;
+  padding: 4px 6px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+#tabla th {
+  background-color: #bfc6da;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#tabla tr.resaltado {
+  background-color: #fffb91 !important;
+}
+
+#tabla td[contenteditable="true"] {
+  background-color: #fff8dc;
+  cursor: text;
+}
+
+#tabla tr:hover {
+  background-color: #e6f0ff;
+  cursor: pointer;
+}
+
+/* Scroll custom */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #contenedorPrincipal {
+    width: 100%;
+    position: relative;
+    height: auto;
+    bottom: auto;
+    box-shadow: none;
+  }
+
+  #map {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 400px;
+  }
+
+  #panelTabla {
+    position: relative;
+    height: auto;
+  }
+}
+
+/* =======================
+   TABLA FLOTANTE
+======================= */
+
+.tabla-flotante {
+  
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 75%;
+  max-width: 1100px;
+  height: 300px;
+  background: #ffffff;  
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  border-radius: 10px;
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.tabla-flotante.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px);
+}
+
+/* Botón flotante FAB */
+.tabla-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--color-primario);
+  color: white;
+  border: none;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 1600;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.tabla-fab:hover {
+  background: #003366;
+}
+
+/* Ajuste tabla interna */
+#tabla {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Botón cerrar */
+.toggle-btn.danger {
+  background: var(--color-peligro);
+}
+.toggle-btn.danger:hover {
+  background: #a71d2a;
+}
+
+.tabla-header {
+  cursor: move;
+  padding: 8px 12px;
+  background: var(--color-primario);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  #contenedorPrincipal {
+    width: 100%;
+    position: relative;
+    height: auto;
+    bottom: auto;
+    box-shadow: none;
+  }
+
+  #map {
+    position: relative;
+    top: 0;
+    left: 360;
+    right: 0;
+    height: 400px;
+  }
+
+  #panelTabla {
+    position: relative;
+    height: auto;
+  }
+}
+
+/* ===== TABLA FLOTANTE REDIMENSIONABLE ===== */
+.tabla-flotante {
+  resize: both;
+  overflow: auto;
+  min-width: 500px;
+  min-height: 180px;
+  max-width: 95vw;
+  max-height: 90vh;
+}
+/* ===== AJUSTES VISUALES PROFESIONALES ===== */
+
+/* Texto general */
+body, html {
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+}
+
+/* Panel izquierdo */
+#contenedorPrincipal {
+  background-color: var(--color-panel);
+  border-right: 1px solid var(--color-borde);
+}
+
+/* Títulos filtros */
+#panelFiltros h2 {
+  color: var(--color-primario);
+}
+
+/* Inputs */
+.grupo-control select,
+.grupo-control input {
+  border: 1px solid var(--color-borde);
+  background-color: #fff;
+  color: var(--color-texto);
+}
+
+.grupo-control select:focus,
+.grupo-control input:focus {
+  border-color: var(--color-secundario);
+}
+
+/* Header tabla */
+.tabla-header {
+  background: var(--color-primario);
+}
+
+/* Tabla */
+#tabla th {
+  background-color: #e5e9f0;
+  color: var(--color-texto);
+}
+
+#tabla tr:hover {
+  background-color: #eaf2fb;
+}
+
+/* Botón flotante */
+.tabla-fab {
+  background: var(--color-secundario);
+}
+
+.tabla-fab:hover {
+  background: #155a96;
+}
+/*--- END AJUSTES PROFESIONALES -- */
+
