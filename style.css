@@ -49,13 +49,7 @@ header {
   background-color: rgba(99, 115, 149, 0.35);
 }
 
-L.circleMarker(latlng, {
-  radius: 6,
-  fillColor: "#f59e0b",   // ámbar = activo
-  color: "#1f2328",       // grafito = estructura
-  weight: 1.5,
-  fillOpacity: 0.9
-});
+
 
 /*FIN VARIABLES DE COLOR*/
 
@@ -588,3 +582,35 @@ body, html {
 }
 /*--- END AJUSTES PROFESIONALES -- */
 
+/* =========================
+   DASHBOARD KPI
+========================= */
+
+#dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.kpi-card {
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  border-left: 5px solid var(--color-primario);
+}
+
+.kpi-card h3 {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.kpi-card span {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primario);
+}
